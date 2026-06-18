@@ -342,8 +342,9 @@
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const rsvp  = document.querySelector('input[name="rsvp"]:checked');
-      const name  = document.getElementById('name').value.trim();
+      const rsvp   = document.querySelector('input[name="rsvp"]:checked');
+      const name   = document.getElementById('name').value.trim();
+      const wishes = document.getElementById('wishes').value.trim();
 
       if (!rsvp) { alert('Pick one — there are no wrong answers here 😄'); return; }
 
@@ -355,6 +356,23 @@
 
       this.style.display = 'none';
       document.getElementById('successMsg').style.display = 'flex';
+
+      fetch('https://discord.com/api/webhooks/1517212619457695978/3JS72ocMHrNMz1RbyV9PdFb9Y_ZLDiB3jOQA1g7BsesaxC6HLHZTHL8a3BVJGdN_fn4p', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: '💌 New RSVP!',
+            color: 15221850,
+            fields: [
+              { name: '👤 Name',             value: name   || '*(not provided)*', inline: true },
+              { name: '💗 Response',          value: 'Yes 🎉',                    inline: true },
+              { name: '✨ Special Requests',  value: wishes || '*(none)*' }
+            ],
+            footer: { text: 'Friday 19th June · Be ready at 9 PM' }
+          }]
+        })
+      });
     });
   </script>
 </body>
