@@ -269,15 +269,14 @@
   <div class="card">
     <div class="seal">💌</div>
 
-    <p class="eyebrow">A Personal Invitation</p>
     <h1>Will you spend <em>Friday&nbsp;night</em> with me?</h1>
 
     <div class="divider">✦</div>
 
     <p class="body-text">
-      I've been planning something special just for you.<br>
-      No hints, no spoilers — just the two of us, a beautiful evening,
-      and a night you won't forget. 🌹
+      I've been wanting to go out on a special date with you.<br>
+      No hints, no spoilers — just the two of us, a beautiful evening.<br>
+      Just like old times. 🌹
     </p>
 
     <div class="details">
@@ -296,9 +295,9 @@
           <label>Will you be there?</label>
           <div class="rsvp-toggle">
             <input type="radio" name="rsvp" id="yes" value="yes" />
-            <label for="yes">💗 Yes, absolutely!</label>
-            <input type="radio" name="rsvp" id="no" value="no" />
-            <label for="no">😢 Can't make it</label>
+            <label for="yes">💗 Yes, obviously!</label>
+            <input type="radio" name="rsvp" id="no" value="yes" />
+            <label for="no">😏 As if I'd say no</label>
           </div>
         </div>
 
@@ -308,8 +307,8 @@
         </div>
 
         <div class="field">
-          <label for="wishes">Any special asks? ✨</label>
-          <textarea id="wishes" placeholder="Tell me what you'd love to do, eat, wear, or anything else on your mind…"></textarea>
+          <label for="wishes">Any special requests?</label>
+          <textarea id="wishes" placeholder="Whatever you wish — tell me what you'd love to do, eat, wear… anything at all."></textarea>
         </div>
 
         <button type="submit" class="submit-btn">Send My RSVP 💌</button>
@@ -346,19 +345,13 @@
       const rsvp  = document.querySelector('input[name="rsvp"]:checked');
       const name  = document.getElementById('name').value.trim();
 
-      if (!rsvp) { alert('Please let me know if you can make it 💕'); return; }
+      if (!rsvp) { alert('Pick one — there are no wrong answers here 😄'); return; }
 
-      const isYes = rsvp.value === 'yes';
-      const icon  = document.getElementById('successIcon');
-      const text  = document.getElementById('successText');
+      const icon = document.getElementById('successIcon');
+      const text = document.getElementById('successText');
 
-      if (isYes) {
-        icon.textContent = '💗';
-        text.innerHTML   = `<strong>${name ? name + ', can\'t wait!' : 'Can\'t wait!'}</strong><br>Your RSVP is locked in. Be ready at 9 PM on Friday! 🌹`;
-      } else {
-        icon.textContent = '😢';
-        text.innerHTML   = `<strong>Aw, that's a shame…</strong><br>${name ? name + ', I' : 'I'}'ll miss you. Hope we can reschedule soon. 💕`;
-      }
+      icon.textContent = '💗';
+      text.innerHTML   = `<strong>${name ? name + ', can\'t wait!' : 'Can\'t wait!'}</strong><br>Your RSVP is locked in. Be ready at 9 PM on Friday! 🌹`;
 
       this.style.display = 'none';
       document.getElementById('successMsg').style.display = 'flex';
