@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Special Invitation Just for You 💌</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:    #e8445a;
+      --blush:   #fde8ed;
+      --gold:    #c9974c;
+      --cream:   #fdf6f0;
+      --dark:    #3a2a2a;
+      --muted:   #7a5c5c;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--cream);
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 60px;
+      overflow-x: hidden;
+    }
+
+    /* Floating hearts background */
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .heart-float {
+      position: absolute;
+      font-size: 1.4rem;
+      opacity: 0;
+      animation: floatUp 8s ease-in infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(105vh) scale(0.8); opacity: 0; }
+      10%  { opacity: 0.35; }
+      90%  { opacity: 0.15; }
+      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 12px 48px rgba(200, 80, 100, 0.14), 0 2px 8px rgba(0,0,0,0.06);
+      max-width: 560px;
+      width: 100%;
+      padding: 48px 40px 44px;
+      text-align: center;
+    }
+
+    .seal {
+      width: 72px;
+      height: 72px;
+      background: var(--rose);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 24px;
+      box-shadow: 0 4px 16px rgba(232,68,90,0.35);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.07); }
+    }
+
+    .eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      line-height: 1.25;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    h1 em { color: var(--rose); font-style: italic; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      color: var(--gold);
+      font-size: 0.9rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .body-text {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* Detail pills */
+    .details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .pill {
+      background: var(--blush);
+      border: 1px solid #f4c0cb;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--rose);
+      font-weight: 400;
+    }
+    .pill .icon { font-size: 1.1rem; }
+
+    /* RSVP form */
+    .form-section {
+      background: var(--blush);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: left;
+    }
+    .form-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* RSVP toggle */
+    .rsvp-toggle {
+      display: flex;
+      gap: 10px;
+    }
+    .rsvp-toggle input[type="radio"] { display: none; }
+    .rsvp-toggle label {
+      flex: 1;
+      cursor: pointer;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid #f0b8c2;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      transition: all 0.2s;
+    }
+    .rsvp-toggle input[type="radio"]:checked + label {
+      border-color: var(--rose);
+      background: var(--rose);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(232,68,90,0.3);
+    }
+    .rsvp-toggle label:hover { border-color: var(--rose); color: var(--rose); }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 1.5px solid #f0b8c2;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: #fff;
+      resize: vertical;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    textarea:focus, input[type="text"]:focus { border-color: var(--rose); }
+    textarea { min-height: 90px; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #e8445a, #c9355e);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 6px 20px rgba(232,68,90,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .submit-btn:hover  { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(232,68,90,0.4); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 0 4px;
+      text-align: center;
+    }
+    .success-msg .big-icon { font-size: 3rem; animation: pop 0.4s cubic-bezier(.18,.89,.32,1.28); }
+    @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+    .success-msg p { color: var(--muted); line-height: 1.6; }
+    .success-msg strong { color: var(--rose); font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+
+    .footer-note {
+      margin-top: 28px;
+      font-size: 0.78rem;
+      color: #c0a0a0;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 22px 36px; }
+      h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts -->
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <div class="card">
+    <div class="seal">💌</div>
+
+    <p class="eyebrow">A Personal Invitation</p>
+    <h1>Will you spend <em>Friday&nbsp;night</em> with me?</h1>
+
+    <div class="divider">✦</div>
+
+    <p class="body-text">
+      I've been planning something special just for you.<br>
+      No hints, no spoilers — just the two of us, a beautiful evening,
+      and a night you won't forget. 🌹
+    </p>
+
+    <div class="details">
+      <div class="pill"><span class="icon">📅</span> Friday, 19th June 2026</div>
+      <div class="pill"><span class="icon">🕘</span> Be ready at 9:00 PM</div>
+      <div class="pill"><span class="icon">📍</span> Location — it's a surprise!</div>
+    </div>
+
+    <!-- RSVP Form -->
+    <div class="form-section">
+      <h2>Your RSVP 💕</h2>
+
+      <form id="rsvpForm" novalidate>
+
+        <div class="field">
+          <label>Will you be there?</label>
+          <div class="rsvp-toggle">
+            <input type="radio" name="rsvp" id="yes" value="yes" />
+            <label for="yes">💗 Yes, absolutely!</label>
+            <input type="radio" name="rsvp" id="no" value="no" />
+            <label for="no">😢 Can't make it</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" placeholder="So I know it's really you 😊" />
+        </div>
+
+        <div class="field">
+          <label for="wishes">Any special asks? ✨</label>
+          <textarea id="wishes" placeholder="Tell me what you'd love to do, eat, wear, or anything else on your mind…"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send My RSVP 💌</button>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="big-icon" id="successIcon">💗</div>
+        <p id="successText"><strong>Can't wait!</strong><br>Your RSVP is in. See you Friday — be ready at 9 PM! 🌹</p>
+      </div>
+    </div>
+
+    <p class="footer-note">Made with love, just for you.</p>
+  </div>
+
+  <script>
+    // Spawn floating hearts
+    const hb = document.getElementById('heartsBg');
+    const emojis = ['❤️','💕','💗','💓','🌹','✨','💖','💝'];
+    for (let i = 0; i < 18; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart-float';
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDelay = (Math.random() * 8) + 's';
+      h.style.animationDuration = (6 + Math.random() * 6) + 's';
+      h.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+      hb.appendChild(h);
+    }
+
+    // Form submission
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const rsvp  = document.querySelector('input[name="rsvp"]:checked');
+      const name  = document.getElementById('name').value.trim();
+
+      if (!rsvp) { alert('Please let me know if you can make it 💕'); return; }
+
+      const isYes = rsvp.value === 'yes';
+      const icon  = document.getElementById('successIcon');
+      const text  = document.getElementById('successText');
+
+      if (isYes) {
+        icon.textContent = '💗';
+        text.innerHTML   = `<strong>${name ? name + ', can\'t wait!' : 'Can\'t wait!'}</strong><br>Your RSVP is locked in. Be ready at 9 PM on Friday! 🌹`;
+      } else {
+        icon.textContent = '😢';
+        text.innerHTML   = `<strong>Aw, that's a shame…</strong><br>${name ? name + ', I' : 'I'}'ll miss you. Hope we can reschedule soon. 💕`;
+      }
+
+      this.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
